@@ -1,1 +1,14 @@
-[{"title":"मेरे सामने वाली खिड़की मे..."},{"title":"मेरे सामने वाली खिड़की मे..."},{"title":"मेरे सामने वाली खिड़की मे..."},{"title":"Past Activity 11"},{"title":"Past Activity 1ded"},{"title":"Book"},{"title":"मेरे सामने वाली खिड़की मे..."},{"title":"jitendera pratap singh"}]
+[
+  {
+    "title": "Past Activity 11",
+    "imgUrl": "https://images.freeimages.com/images/large-previews/9f9/selfridges-2-1470748.jpg",
+    "description": "Testing",
+    "price": "12.89"
+  },
+  {
+    "title": "मेरे सामने वाली खिड़की मे...",
+    "imgUrl": "sadasd",
+    "description": "sdf",
+    "price": "12"
+  }
+]
