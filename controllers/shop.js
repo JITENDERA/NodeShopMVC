@@ -1,27 +1,33 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 
-exports.getProducts = (_req, _res, _next) => {
-    Product.fetchAll((products) => {
-        _res.render('shop/product-list', { prods: products, pageTitle: 'Shop', path: '/products' });
-    });
-
+exports.getProducts = (_req, res) => {
+    Product.fetchAll()
+        .then(([rows]) => {
+            res.render('shop/product-list', { prods: rows, pageTitle: 'Shop', path: '/products' });
+        })
+        .catch(err => console.log(err));
 };
 
-exports.getProduct = (_req, _res, _next) => {
-    const prodId = _req.params.productId;
-    Product.findById(prodId, product => {
-        _res.render('shop/product-detail', { product: product, pageTitle: product.title, path: '/products' });
-    })
+exports.getProduct = (req, res) => {
+    const prodId = req.params.productId;
+    Product.findById(prodId)
+        .then(([product]) => {
+            res.render('shop/product-detail', { product: product[0], pageTitle: product.title, path: '/products' });
+        })
+        .catch(err => console.log(err));
 };
 
-exports.getIndex = (_req, _res, _next) => {
-    Product.fetchAll((products) => {
-        _res.render('shop/index', { prods: products, pageTitle: 'Shop', path: '/' });
-    });
+exports.getIndex = (_req, res) => {
+    Product.fetchAll()
+        .then(([rows]) => {
+            res.render('shop/index', { prods: rows, pageTitle: 'Shop', path: '/' });
+        })
+        .catch(err => console.log(err));
+
 }
 
-exports.getCart = (_req, _res, _next) => {
+exports.getCart = (_req, res) => {
     Cart.getProducts(cart => {
         Product.fetchAll(products => {
             const cartProducts = []
@@ -31,7 +37,7 @@ exports.getCart = (_req, _res, _next) => {
                     cartProducts.push({ productData: product, qty: cartProductData.qty });
                 }
             }
-            _res.render('shop/cart', {
+            res.render('shop/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
                 products: cartProducts

@@ -1,17 +1,21 @@
 const Product = require('../models/product');
 
-exports.getAddedProduct = (_req, _res, _next) => {
-    _res.render('admin/edit-product', { pageTitle: 'Add Product', path: "/admin/add-product", editing: false });
+exports.getAddedProduct = (_req, res) => {
+    res.render('admin/edit-product', { pageTitle: 'Add Product', path: "/admin/add-product", editing: false });
 };
 
-exports.postAddProduct = (_req, _res, _next) => {
-    const title = _req.body.title;
-    const imageUrl = _req.body.imageUrl;
-    const price = _req.body.price;
-    const description = _req.body.description;
+exports.postAddProduct = (req, res) => {
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const price = req.body.price;
+    const description = req.body.description;
     const product = new Product(null, title, price, imageUrl, description);
-    product.save();
-    _res.redirect('/');
+    product
+        .save()
+        .then(() => {
+            res.redirect('/');
+        })
+        .catch(err => console.log(err));
 };
 
 exports.getEditProduct = (_req, _res, _next) => {
